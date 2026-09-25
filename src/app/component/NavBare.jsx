@@ -34,7 +34,7 @@ const NavBare = () => {
               </Link>
 
               <Link
-                href="/my-plan"
+                href="http://localhost:3000/plan"
                 className="font-bold py-0.5 px-3 text-sm rounded-2xl text-[#9CA3AF] cursor-pointer transition hover:bg-[#313f24] hover:text-[#C2F800]"
               >
                 My Plan
