@@ -1,11 +1,9 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import DeletPlan from '../delet-item/DeletPlan';
+import DeletPlan from '../delet-item/DeletPlan'; // Path ta apnar folder onujayi thik kore nin
 
-const WorkoutCard = ({ workout }) => {
-  // Agar workout undefined hai toh crash se bachne ke liye safety check
+const WorkoutCard = ({ workout, onRemove }) => {
   if (!workout) return null;
 
   return (
@@ -14,7 +12,7 @@ const WorkoutCard = ({ workout }) => {
       {/* Left Side: Image and Details */}
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full md:w-auto">
         
-        {/* Image Wrapper (Relative zaroori hai fill ke liye) */}
+        {/* Image Wrapper */}
         <div className="relative w-full sm:w-32 h-24 shrink-0 rounded-xl overflow-hidden">
           <Image
             src={workout.image}
@@ -30,12 +28,11 @@ const WorkoutCard = ({ workout }) => {
             {workout.name}
           </h2>
           
-          {/* Equipment & Difficulty */}
           <p className="text-gray-400 text-sm mb-3">
             {workout.equipment} • {workout.difficulty}
           </p>
 
-          {/* Stats Row (Time, Calories, Rating) */}
+          {/* Stats Row */}
           <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 text-sm font-medium text-gray-300">
             
             {/* Duration */}
@@ -69,14 +66,12 @@ const WorkoutCard = ({ workout }) => {
       {/* Right Side: Action Buttons */}
       <div className="flex flex-wrap sm:flex-nowrap items-center justify-center md:justify-end gap-3 w-full md:w-auto shrink-0 mt-4 md:mt-0">
         
-        {/* View Details Button */}
         <Link href={`http://localhost:3000/card/${workout.id}`}>
-        <button className="px-5 py-2 rounded-full border border-gray-600 text-gray-300 text-sm font-medium hover:bg-gray-800 hover:text-white transition-colors duration-200">
-          View Details
-        </button>
+          <button className="px-5 py-2 rounded-full border border-gray-600 text-gray-300 text-sm font-medium hover:bg-gray-800 hover:text-white transition-colors duration-200">
+            View Details
+          </button>
         </Link>
         
-        {/* Mark as Done Button (Neon Green) */}
         <button className="px-5 py-2 rounded-full bg-[#D4FF00] text-black text-sm font-bold flex items-center gap-1.5 hover:bg-[#b3d600] transition-colors duration-200 shadow-[0_0_10px_rgba(212,255,0,0.2)]">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
@@ -84,9 +79,9 @@ const WorkoutCard = ({ workout }) => {
           Mark as Done
         </button>
         
-        {/* Close (X) Button */}
-      
-<DeletPlan></DeletPlan>
+        {/* Ekhane ID ta pass kora hocche, jodi id na thake to _id pass hobe */}
+        <DeletPlan onDelete={() => onRemove(workout.id || workout._id)} />
+        
       </div>
     </div>
   );
