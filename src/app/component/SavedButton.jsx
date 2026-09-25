@@ -7,15 +7,24 @@ const SavedButton = ({ data }) => {
 
     if (!data) return null;
 
+    // 🔍 এই কার্ডটা আগে save করা হয়েছে কিনা চেক
+    const isSaved = saved.some((item) => item.id === data.id);
+
     const handleSaved = () => {
+        if (isSaved) return; // safety guard
         setSaved([...saved, data]);
     };
 
     return (
         <div>
-            <button 
+            <button
+                disabled={isSaved}
                 onClick={handleSaved}
-                className="flex items-center gap-2 bg-[#1A1A1A] hover:bg-white/10 border border-white/5 text-white font-bold py-3 px-6 rounded-xl transition cursor-pointer"
+                className={`flex items-center gap-2 font-bold py-3 px-6 rounded-xl border transition ${
+                    isSaved
+                        ? 'bg-[#1A1A1A] border-white/5 text-gray-500 cursor-not-allowed opacity-60'
+                        : 'bg-[#1A1A1A] hover:bg-white/10 border-white/5 text-white cursor-pointer'
+                }`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +39,7 @@ const SavedButton = ({ data }) => {
                 >
                     <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                 </svg>
-                Save for later
+                {isSaved ? '✓ Saved' : 'Save for later'}
             </button>
         </div>
     );
