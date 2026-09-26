@@ -111,9 +111,9 @@ GET /:id           → single workout
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- Email: you@example.com
+**Samiur Rahman Siyam **
+- GitHub: [@your-username](https://github.com/samiursiyam)
+- Email: rsiyam548@gmail.com
 
 ---
 
@@ -121,6 +121,6 @@ GET /:id           → single workout
 
 ### ⭐ If you like this project, give it a star!
 
-**Built with 💪 by [Your Name](https://github.com/your-username)**
+**Built with 💪 by [Samiur Rahman Siyam ](https://github.com/samiursiyam)**
 
 </div>
