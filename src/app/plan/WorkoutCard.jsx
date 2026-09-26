@@ -1,40 +1,59 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import DeletPlan from '../delet-item/DeletPlan'; // Path ta apnar folder onujayi thik kore nin
+import DeletPlan from '../delet-item/DeletPlan';
 
-const WorkoutCard = ({ workout, onRemove }) => {
+const WorkoutCard = ({ workout, onRemove, onDone, isDone = false }) => {
   if (!workout) return null;
 
   return (
-    <div className="bg-[#141414] border border-gray-800 rounded-2xl p-4 w-full flex flex-col md:flex-row items-center justify-between gap-5 shadow-lg transition-all hover:border-gray-700">
-      
+    <div
+      className={`border rounded-2xl p-4 w-full flex flex-col md:flex-row items-center justify-between gap-5 shadow-lg transition-all ${
+        isDone
+          ? 'bg-[#0f1a0f] border-[#C2F800]/30'
+          : 'bg-[#141414] border-gray-800 hover:border-gray-700'
+      }`}
+    >
+
       {/* Left Side: Image and Details */}
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full md:w-auto">
-        
-        {/* Image Wrapper */}
+
+        {/* Image */}
         <div className="relative w-full sm:w-32 h-24 shrink-0 rounded-xl overflow-hidden">
           <Image
             src={workout.image}
             alt={workout.name || "Workout Image"}
             fill
-            className="object-cover"
+            className={`object-cover transition-all duration-300 ${isDone ? 'grayscale opacity-60' : ''}`}
           />
+
+          {/* Done overlay */}
+          {isDone && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#C2F800] text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Details */}
         <div className="flex flex-col text-center sm:text-left w-full">
-          <h2 className="text-white font-bold text-lg uppercase tracking-wider">
+          <h2 className={`font-bold text-lg uppercase tracking-wider transition-all ${
+            isDone ? 'text-gray-500 line-through' : 'text-white'
+          }`}>
             {workout.name}
           </h2>
-          
+
           <p className="text-gray-400 text-sm mb-3">
             {workout.equipment} • {workout.difficulty}
           </p>
 
           {/* Stats Row */}
           <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 text-sm font-medium text-gray-300">
-            
+
             {/* Duration */}
             <div className="flex items-center gap-1.5">
               <svg className="w-4 h-4 text-[#D4FF00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,23 +84,31 @@ const WorkoutCard = ({ workout, onRemove }) => {
 
       {/* Right Side: Action Buttons */}
       <div className="flex flex-wrap sm:flex-nowrap items-center justify-center md:justify-end gap-3 w-full md:w-auto shrink-0 mt-4 md:mt-0">
-        
-        <Link href={`http://localhost:3000/card/${workout.id}`}>
+
+        <Link href={`/card/${workout.id || workout._id}`}>
           <button className="px-5 py-2 rounded-full border border-gray-600 text-gray-300 text-sm font-medium hover:bg-gray-800 hover:text-white transition-colors duration-200">
             View Details
           </button>
         </Link>
-        
-        <button className="px-5 py-2 rounded-full bg-[#D4FF00] text-black text-sm font-bold flex items-center gap-1.5 hover:bg-[#b3d600] transition-colors duration-200 shadow-[0_0_10px_rgba(212,255,0,0.2)]">
+
+        {/* 🔹 Mark as Done */}
+        <button
+          onClick={() => onDone?.(workout)}
+          className={`px-5 py-2 rounded-full text-sm font-bold flex items-center gap-1.5 transition-colors duration-200 ${
+            isDone
+              ? 'bg-[#1f2a1f] text-[#C2F800] border border-[#C2F800]/30 hover:bg-[#263426]'
+              : 'bg-[#D4FF00] text-black hover:bg-[#b3d600] shadow-[0_0_10px_rgba(212,255,0,0.2)]'
+          }`}
+        >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
           </svg>
-          Mark as Done
+          {isDone ? 'Completed' : 'Mark as Done'}
         </button>
-        
-        {/* Ekhane ID ta pass kora hocche, jodi id na thake to _id pass hobe */}
+
+        {/* 🔹 Remove button */}
         <DeletPlan onDelete={() => onRemove(workout.id || workout._id)} />
-        
+
       </div>
     </div>
   );

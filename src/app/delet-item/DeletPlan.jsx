@@ -2,8 +2,8 @@ import React from 'react';
 
 const DeletPlan = ({ onDelete }) => {
     return (
-        <button 
-            onClick={onDelete} 
+        <button
+            onClick={onDelete}
             title="Delete item"
             className="text-gray-500 hover:text-red-500 p-2 transition-colors duration-200"
         >
