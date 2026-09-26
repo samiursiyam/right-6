@@ -12,7 +12,7 @@ const FonatButton = ({ data }) => {
   const hendleReadBook = () => {
 
 
-    toast(`${data.name} 🤗  is added to your Today's plan .....`, {
+    toast(`${data.name}  ✨ 🎉 is added to your Today's plan .....`, {
       position: 'top-right',
       autoClose: 5000,
       
