@@ -21,14 +21,19 @@ const WorkoutCard = ({ data }) => { // data প্রপ্স হিসেব�
       <div className="p-5">
 
         {/* Tags */}
-        <div className="flex gap-2 mb-4">
-          <span className="bg-[#bcfb4c] text-black text-[11px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-wider">
-            {data.muscleGroups[0]}
-          </span>
-          <span className="bg-[#bcfb4c] text-black text-[11px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-wider">
-            {data.muscleGroups[1]}
-          </span>
-        </div>
+      <div className="flex gap-2 mb-4">
+  {data.muscleGroups?.[0] && (
+    <span className="bg-[#bcfb4c] text-black text-[11px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-wider">
+      {data.muscleGroups[0]}
+    </span>
+  )}
+
+  {data.muscleGroups?.[1] && (
+    <span className="bg-[#bcfb4c] text-black text-[11px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-wider">
+      {data.muscleGroups[1]}
+    </span>
+  )}
+</div>
 
         {/* Title & Subtitle */}
         <h2 className="text-white text-3xl font-extrabold uppercase mb-1 tracking-tight truncate">

@@ -28,6 +28,9 @@ const Planpage = () => {
 
   // 3. Delete Handler
   const handleRemove = (id) => {
+
+
+
     if (!id) return;
     if (activeTab === 'plan') {
       removeFromPlan(id);

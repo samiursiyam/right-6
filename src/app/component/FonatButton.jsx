@@ -1,15 +1,34 @@
 'use client';
+
 import React, { useContext } from 'react';
 import { CardContext } from './context/CardContext';
+import { toast, Bounce } from 'react-toastify';
 
 const FonatButton = ({ data }) => {
   const { plan, setPlan } = useContext(CardContext);
 
-  // 🔍 এই কার্ডটা আগে add করা হয়েছে কিনা চেক
   const isAdded = plan.some((item) => item.id === data.id);
 
   const hendleReadBook = () => {
-    if (isAdded) return; // safety
+
+
+    toast(`${data.name} 🤗  is added to your Today's plan .....`, {
+      position: 'top-right',
+      autoClose: 5000,
+      
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+       style: {
+    background: '#0F0F0F',
+    color: '#D8EB7F',
+  },
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: Bounce,
+    });
+
     setPlan([...plan, data]);
   };
 
@@ -46,6 +65,7 @@ const FonatButton = ({ data }) => {
           <path d="M12 18h.01" />
           <path d="M16 18h.01" />
         </svg>
+
         {isAdded ? '✓ Added to plan' : 'Add to todays plan'}
       </button>
     </div>
