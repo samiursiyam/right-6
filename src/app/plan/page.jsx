@@ -65,7 +65,7 @@ const Planpage = () => {
               activeTab === 'plan' ? 'bg-[#252525] text-white shadow-md' : 'text-gray-400 hover:text-white hover:bg-[#1a1a1a]'
             }`}
           >
-            Todays Plan  ( {plan?.length || 0} )
+            Today&apos;s Plan  ( {plan?.length || 0} )
           </button>
           <button
             onClick={() => setActiveTab('saved')}
